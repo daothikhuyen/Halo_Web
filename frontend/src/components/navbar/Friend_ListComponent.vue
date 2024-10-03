@@ -35,7 +35,7 @@
                             <div class="flex-1"></div>
                             <div class="w-fit w-full px-2 ">
                                 <div class="w-fit w-full">
-                                    <div class="menu-small filter-preview-v2 label-filter-preview flex items-center px-3 hover:rounded-full hover:bg-[#eaedf0]"  ref="popoverRef"  :class="{selected: popover === 'Phân loại'}" @click="toggleMenu('Phân loại')">
+                                    <div class="menu-small filter-preview-v2 label-filter-preview flex items-center px-3 hover:rounded-full hover:bg-[#eaedf0]" :class="{selected: popover === 'Phân loại'}" @click="toggleMenu('Phân loại')">
                                         <div class="flex me-2">
                                             <div class="text-xs leading-6 block">Phân loại</div>
                                         </div>
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="menu-small z--btn-v2 icon-only btn-tertiary-neutral medium flex justify-center items-center p-2 hover:rounded-full hover:bg-[#eaedf0]"  ref="popoverRef"  :class="{selected: popover === 'Thêm bạn'}" title="Thêm bạn" @click="toggleMenu('Thêm bạn')">
+                            <div class="menu-small z--btn-v2 icon-only btn-tertiary-neutral medium flex justify-center items-center p-2 hover:rounded-full hover:bg-[#eaedf0]" :class="{selected: popover === 'Thêm bạn'}" title="Thêm bạn" @click="toggleMenu('Thêm bạn')">
                                 <i class="fa-solid fa-ellipsis pre"></i>
                             </div>
                         </div>
@@ -55,12 +55,13 @@
             <div class="virtualized-scroll">
                 <div class="scroll-style absolute inset-0" style="margin-right: 0px; margin-bottom: -6px;">
                     <div id="conversationList"  class="box-border" style="width: 344px;">
-                        <div class="msg-item">
-                            <div class="gridv2 conv-item conv-rel gap-0" style="grid-template-columns: 60px auto 36px 23px;">
+                        <div v-for="item in message" :key="item.id" class="msg-item">
+                            
+                            <div  class="gridv2 conv-item conv-rel gap-0" style="grid-template-columns: 60px auto 36px 23px;" @click="chooseFriend(item)">
                                 <div class="flex row-end-3 row-start-1 conv-item__avatar">
                                     <div class="rel zavatar_container conversationList__avatar relative h-fit">
                                         <div class="zavatar zavatar-1 zavatar-single flex flex-center rel disableDrag clickable zavatar-4">
-                                            <img draggable="false" src="https://ava-grp-talk.zadn.vn/b/4/3/3/2/360/0e77b13addf1be947c5fd32fc218bebc.jpg" class="a-child">
+                                            <img draggable="false" :src="item.user.avatar" class="a-child">
                                         </div>
                                     </div>
                                 </div>
@@ -68,7 +69,7 @@
                                 <div-b16 class="conv-item-title__name truncate grid-item" classname="grid-item">
                                     <i class="fa fa-Community_16_Filled community__conv-indicator"></i>
                                     <div class="truncate">
-                                        Căn&nbsp;Tin&nbsp;Ký&nbsp;Túc&nbsp;Xá&nbsp;VKU-0914&nbsp;422&nbsp;539
+                                        {{item.user.username}}
                                     </div>
                                 </div-b16>
 
@@ -91,12 +92,13 @@
                                     <div class="conv-item-body__main truncate flex w100">
                                         <div class="conv-message truncate">
                                             <div-14 class="truncate flex" style="align-items: center;">
-                                                <div class="conv-dbname  truncate" style="margin-right: 4px;">Anh Thu:</div>
+                                                <div v-if="item.sender_id === item.user.id" class="conv-dbname  truncate" style="margin-right: 4px;"  >{{item.user.username}}:</div>
+                                                <div v-else class="conv-dbname  truncate" style="margin-right: 4px;">Bạn:</div>
                                                 <span class="false message__icon">
                                                     <i class="fa fa-icon-outline-picture"></i>
                                                 </span>
                                                 <div class="truncate">
-                                                    <span>21H30p còn 14k: https://s.shopee.vn/BAtaaXK19 --&gt; Mẹo săn deal nhảy giá... chuẩn bị sẵn đến bước đặt hàng bật sẵn xu lên đợi đúng giờ tắt xu đi nó sẽ về giá nhanh tay ấn đặt hàng</span>
+                                                    <span>{{item.content}}</span>
                                                 </div>
                                             </div-14>
                                         </div>
@@ -171,7 +173,7 @@
                                 <div-b16 class="conv-item-title__name truncate grid-item unread" classname="grid-item">
                                     <i class="fa fa-Community_16_Filled community__conv-indicator"></i>
                                     <div class="truncate">
-                                        Huynh Minh
+                                        Vân
                                     </div>
                                 </div-b16>
 
@@ -254,15 +256,19 @@
 <script>
 import {ref} from 'vue'
 
+import messageApi from '@/assets/js/Api/messageApi'
+
 export default {
     name : "FriendComponent",
     data() {
         const popover = ref(null)
+        const message = ref([])
         return {
-            popover
+            popover,
+            message
         }
     },
-    methods : {
+    methods: {
         toggleMenu(title){
             if(title === this.popover){
                 this.popover = null
@@ -271,6 +277,13 @@ export default {
             }
             
         },
+
+        chooseFriend(item){
+            this.$emit('chooseFriend_chat', item)
+        }
+    },
+    created(){
+        this.message = messageApi.message()
     }
 }
 </script>
@@ -429,6 +442,7 @@ export default {
 .conv-list-semi-compact #conversationListId .virtualized-scroll #conversationList .msg-item {
   height: 70px;
   width: 100%;
+
 }
 .conv-list-semi-compact #conversationListId .virtualized-scroll #conversationList .msg-item .gridv2 {
   display: grid;
@@ -440,6 +454,11 @@ export default {
   background-color: var(--WA100);
   cursor: pointer;
   overflow: hidden;
+}
+.conv-list-semi-compact #conversationListId .virtualized-scroll #conversationList .msg-item .gridv2.conv-item:hover{
+    background-color: #f3f5f6;
+    gap: 0px;
+    grid-template-columns: 60px auto 23px 23px;
 }
 .conv-list-semi-compact #conversationListId .virtualized-scroll #conversationList .msg-item .gridv2.conv-item .conv-item__avatar {
   position: relative;

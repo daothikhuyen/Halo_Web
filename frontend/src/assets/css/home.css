@@ -20,7 +20,7 @@ body {
   --text-secondary: #7589a3;
 }
 
-div-b16 {
+span-16,div-b16 {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -28,6 +28,12 @@ div-b16 {
 
 div-14, span-14 {
   font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+div-15, span-15 {
+  font-size: .9375rem;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -170,6 +176,19 @@ body, html {
   min-width: 32px;
   height: 32px;
 }
+
+.z--btn-v2.icon-only-2.medium>.pre, 
+.z--btn-v2.icon-only.medium>.pre {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  line-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
 .z--btn-v2 .pre {
   font-size: 1rem;
   width: 1rem;
@@ -396,17 +415,21 @@ body, html {
   overflow: hidden;
   box-sizing: border-box;
 }
+.zavatar_container .zavatar.zavatar-m {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+}
+.zavatar_container .zavatar.zavatar-1 .a-child,
 .zavatar_container .zavatar.zavatar-1 {
   width: 48px;
   height: 48px;
   min-width: 48px;
   min-height: 48px;
 }
+.zavatar_container .zavatar.zavatar-m,
 .zavatar_container .zavatar.zavatar-1 .a-child {
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  min-height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -422,6 +445,60 @@ body, html {
   box-sizing: border-box;
   border-radius: 50%;
 }
+
+/* css chat content */
+.chat-item{
+  margin: 0 16px 7px;
+  word-wrap: break-word;
+  contain: style;
+  word-break:break-word;;
+}
+
+.chat-item.me {
+  margin: 0 16px 7px;
+  flex-flow: row-reverse nowrap;
+}
+
+.chat-content{
+  margin: 0 0 0 10px;
+  max-width: calc(100% - 30px);
+}
+
+.chat-message{
+  display: flex;
+  user-select: none;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: relative;
+  color: #081c36;
+}
+
+.chat-message::before{
+  contain: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 0 100px;
+  right: -100px;
+}
+
+.chat-message .card{
+  position: relative;
+  display: block;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff;
+  color: #081c36;
+  margin-bottom: 4px;
+}
+
+.chat-message .card.card--text{
+  user-select: text;
+  min-width: 40px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* css menu small */
 
 .popover-v3 {
   position: absolute;
@@ -497,4 +574,8 @@ body, html {
 }
 .popover-v3 .zmenu-body .hl-scroll-menu::-webkit-scrollbar {
   display: none;
+}
+
+.chat-info-general__section--border{
+  border-top: 8px solid #eef0f1;
 }
