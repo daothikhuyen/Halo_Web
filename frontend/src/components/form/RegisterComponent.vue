@@ -1,75 +1,114 @@
-<template>
-    <section class="bg-gray-50 dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-          <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
-          Flowbite    
-      </a>
-      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  Create an account
-              </h1>
-              <form class="space-y-4 md:space-y-6" @submit.prevent="Validate()">
-                  <div>
-                      <label for="number_phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nhập SĐT</label>
-                      <input type="text" name="number_phone" id="number_phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="(+84)" required="" v-model="user.phone">
-                  </div>
-                  <div>
-                      <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tên người dùng</label>
-                      <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@..." required="" v-model="user.username">
-                  </div>
-                  <div>
-                      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" v-model="user.password">
-                  </div>
-                  <div class="flex items-start">
-                      <div class="flex items-center h-5">
-                        <input id="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
-                      </div>
-                      <div class="ml-3 text-sm">
-                        <label for="terms" class="font-light text-gray-500 dark:text-gray-300">I accept the <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
-                      </div>
-                  </div>
-                  <button type="submit" style="background-color: blue" class="w-full text-white bg-primary-700 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
-                  <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Already have an account? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
-                  </p>
-              </form>
-          </div>
-      </div>
-  </div>
-</section>
+<template >
+    <section class="bg-gray-50 min-h-screen flex items-center justify-center">
+        <div class="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
+            <!-- image -->
+            <div class=" sm:w-1/2 px-9 md:block hidden ">
+                <img class="rounded-2xl"
+                src="../../assets/images/logo.HALO.jpg" alt="">
+            </div>
+
+            <div class=" w-1/2 ">
+                <h1 class="font-bold text-2xl  text-[#4ce274]">Đăng Ký Halo</h1>
+                <form action="" class="flex flex-col gap-4">
+                    <div class="select-box">
+                        <div class="mb-4">
+                            <input type="text" placeholder="Nhập tên người dùng" class="w-full p-2 border border-gray-300 rounded">
+                        </div>
+                        <div class="mb-4">
+                            <input type="text" placeholder="Nhập số điện thoại" class="w-full p-2 border border-gray-300 rounded">
+                        </div>
+
+                        <div class="relative mt-4">
+                            <p class="text-gray-600">Giới tính</p>
+                            <div class="flex items-center my-2">
+                                <input type="radio" id="male" name="gender" value="male" class="mr-2">
+                                <label for="male" class="mr-4">Nam</label>
+                                <input type="radio" id="female" name="gender" value="female" class="mr-2 ">
+                                <label for="female">Nữ</label>
+                                <input type="radio" id="female" name="gender" value="female" class="ml-4">
+                                <label for="female">Khác</label>
+                            </div>
+                        </div>
+                        
+                        <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+                            <div class="flex space-x-2">
+                                <select id="day" class="w-1/3 p-2 border border-gray-300 rounded" v-model="date.day" ref="daySelect">
+                                    <option value="">Ngày</option>
+                                </select>
+                                <select id="month" class="w-1/3 p-2 border border-gray-300 rounded" v-model="date.month" ref="monthSelect">
+                                    <option value="">Tháng</option>
+                                </select>
+                                <select id="year" class="w-1/3 p-2 border border-gray-300 rounded" v-model="date.year" ref="yearSelect">
+                                    <option value="">Năm</option>
+                                </select>
+                            </div>
+                        </div>
+                    
+                        <div class="mb-4 mt-4">
+                            <input type="password" placeholder="Mật khẩu" class="w-full p-2 border border-gray-300 rounded">
+                        </div>
+                        <div class="mb-4">
+                            <input type="password" placeholder="Nhập lại mật khẩu" class="w-full p-2 border border-gray-300 rounded">
+                        </div>
+                        <div class="text-center">
+                            <button class="bg-[#4ce274] text-white py-2 px-4 rounded hover:bg-green-500">Đăng Ký</button>
+                        </div>
+                    </div> 
+                </form>
+            </div>       
+        </div>
+    </section>
 </template>
 <script>
 import { ref,defineComponent } from 'vue'
+import "../../assets/css/form.css"
 
 export default defineComponent({
     name: "RegisterComponent",
     data(){
-        const user = {
-            phone: ref(0),
-            username: ref(null),
-            password: ref(null)
+        const date = {
+            day: ref(null),
+            month: ref(null),
+            year: ref(null)
         }
-        
+
         return {
-            user
+            date
         }
     },
+    mounted() {
+        this.populateDateFields();
+    },
     methods: {
+        populateDateFields() {
 
-        Validate(){
-            
-        },
+            const daySelect = this.$refs.daySelect;
+            const monthSelect = this.$refs.monthSelect;
+            const yearSelect = this.$refs.yearSelect;
 
-        register(){
+            for (let i = 1; i <= 31; i++) {
+                const option = document.createElement("option");
+                option.value = i;
+                option.text = i;
+                daySelect.appendChild(option);
+            }
 
+            for (let i = 1; i <= 12; i++) {
+                const option = document.createElement("option");
+                option.value = i;
+                option.text = i;
+                monthSelect.appendChild(option);
+            }
+
+            const currentYear = new Date().getFullYear();
+            for (let i = currentYear; i >= 1900; i--) {
+                const option = document.createElement("option");
+                option.value = i;
+                option.text = i;
+                yearSelect.appendChild(option);
+            }
         }
     }
 })
 </script>
 
-<style scoped>
-    
-</style>
